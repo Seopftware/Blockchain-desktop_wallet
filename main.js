@@ -8,8 +8,8 @@ const electron = require("electron"),
         const server = tripcoin.app.listen(port, () => {
             console.log(`Running blockchain node on: http://localhost:${port}`);
         });
-        
         tripcoin.startP2PServer(server);
+        global.sharedPort = port;
     })
 
 
