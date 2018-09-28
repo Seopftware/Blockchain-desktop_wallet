@@ -62,7 +62,7 @@ const AppPresenter = ({
 }) => (
   <AppContainer>
     <Header>
-      <Title>{isLoading ? "Loading..." : "Nomadcoin Wallet"}</Title>
+      <Title>{isLoading ? "Loading..." : "Tripcoin Wallet"}</Title>
       <Button disabled={isMining} onClick={mineBlock}>
         {isMining ? "Mining" : "Mine"}
       </Button>
@@ -72,11 +72,11 @@ const AppPresenter = ({
         <KeyName>Your address:</KeyName> {address}
       </Key>
       <Key>
-        <KeyName>Your balance:</KeyName> {balance} NMD
+        <KeyName>Your balance:</KeyName> {balance} TRIP
       </Key>
     </Card>
     <Card>
-      <Key>Send NMD: </Key>
+      <Key>Send TRIP: </Key>
       <SendTxForm onSubmit={handleSubmit}>
         <Input
           placeholder={"Address"}
