@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start":"electron main.js"
+    "start":"ENV=dev electron main.js"
   },
   "dependencies": {
     "concurrently": "^4.0.1",
