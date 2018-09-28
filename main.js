@@ -1,6 +1,14 @@
 const electron = require("electron"),
     path = require("path"),
-    url = require("url");
+    url = require("url"),
+    tripcoin = require("./blockchain-pow/src/server");
+
+const server = tripcoin.app.listen(4000, () => {
+    console.log("running localhost 4000");
+});
+
+tripcoin.startP2PServer(server);
+
 
 const { app, BrowserWindow } = electron;
 
