@@ -1,34 +1,32 @@
 const electron = require("electron"),
-    path = require("path"),
-    url = require("url"),
-    getPort = require("get-port"),
-    tripcoin = require("./blockchain-pow/src/server");
+  path = require("path"),
+  url = require("url"),
+  getPort = require("get-port"),
+  tripdcoin = require("./blockchain-pow/src/server");
 
-    getPort().then(port => {
-        const server = tripcoin.app.listen(port, () => {
-            console.log(`Running blockchain node on: http://localhost:${port}`);
-        });
-        tripcoin.startP2PServer(server);
-        global.sharedPort = port;
-    })
-
-
+getPort().then(port => {
+  const server = tripdcoin.app.listen(port, () => {
+    console.log(`Running blockchain node on: http://localhost:${port}`);
+  });
+  tripdcoin.startP2PServer(server);
+  global.sharedPort = port;
+});
 
 const { app, BrowserWindow, Menu } = electron;
 
 let mainWindow;
 
 const createWindow = () => {
-    mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        resizable: false,
-        title: "TripCoin Wallet"
-    });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    resizable: false,
+    title: "Nomadcoin Wallet"
+  });
 
-const ENV = process.env.ENV;
+  const ENV = process.env.ENV;
 
-const template = [
+  const template = [
     {
       label: "Nomadcoin Wallet",
       submenu: [
@@ -113,40 +111,35 @@ const template = [
     }
   ];
 
-if(ENV === "dev"){
+  if (ENV === "dev") {
     mainWindow.loadURL("http://localhost:3000");
     mainWindow.webContents.openDevTools();
-}else{
+  } else {
     Menu.setApplicationMenu(Menu.buildFromTemplate(template));
     mainWindow.loadURL(
-        url.format({
-            pathname: path.join(__dirname, "build/index.html"),
-            protocol: "file",
-            slashes: true
-        })
+      url.format({
+        pathname: path.join(__dirname, "build/index.html"),
+        protocol: "file",
+        slashes: true
+      })
     );
-}
+  }
 
-
-    mainWindow.on("closed", () => {
-        mainWindow = null;
-    });
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
 };
 
 app.on("window-all-closed", () => {
-    if(process.platform !== "darwin"){
-        app.quit();
-    }
-
-    else if(process.platform !== "windows"){
-        app.quit();
-    }
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
 
 app.on("activate", () => {
-    if(mainWindow === null){
-        createWindow();
-    }
+  if (mainWindow === null) {
+    createWindow();
+  }
 });
 
 app.on("ready", createWindow);
